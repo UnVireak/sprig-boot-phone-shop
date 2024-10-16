@@ -32,7 +32,7 @@ public class BrandServiceImpl implements BrandService {
     @Override
     public Brand update(Integer id, Brand brandUpdate) {
         Brand brand = getById(id);
-        brand.setName(brand.getName());
+        brand.setName(brandUpdate.getName());
         return brandRepository.save(brand);
     }
 

@@ -2,8 +2,8 @@ package com.unvireak.javaSpringBoot.phoneShop.phoneShop.controller;
 
 import com.unvireak.javaSpringBoot.phoneShop.phoneShop.dto.BrandDTO;
 import com.unvireak.javaSpringBoot.phoneShop.phoneShop.entity.Brand;
+import com.unvireak.javaSpringBoot.phoneShop.phoneShop.mapper.BrandMapper;
 import com.unvireak.javaSpringBoot.phoneShop.phoneShop.service.BrandService;
-import com.unvireak.javaSpringBoot.phoneShop.phoneShop.service.util.Mapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -27,25 +27,27 @@ public class BrandController {
     private BrandService brandService;
 
     @RequestMapping(method=RequestMethod.POST)
-   
-    
+
    public ResponseEntity <?>  create(@RequestBody BrandDTO brandDTO){
-   Brand brand = Mapper.toBrand(brandDTO);
+//   Brand brand = Mapper.toBrand(brandDTO);
+        Brand brand = BrandMapper.INSTANCE.toBrand(brandDTO);
    brand = brandService.create(brand);
-        return ResponseEntity.ok(brand);
+        return ResponseEntity.ok(BrandMapper.INSTANCE.toBrandDTO(brand));
     }
 
      @GetMapping("{id}")
         public ResponseEntity<?> getOneBrand(@PathVariable("id") Integer brandId){
             Brand brand = brandService.getById(brandId);
-            return ResponseEntity.ok(brand);
+         return ResponseEntity.ok(BrandMapper.INSTANCE.toBrandDTO(brand));
         }
 
          @PutMapping("{id}")
          public ResponseEntity<?> update(@PathVariable("id") Integer brandId, @RequestBody BrandDTO brandDTO){
-             Brand brand = Mapper.toBrand(brandDTO);
+//             Brand brand = Mapper.toBrand(brandDTO);
+             Brand brand = BrandMapper.INSTANCE.toBrand(brandDTO);
              Brand updatedBrand = brandService.update(brandId, brand);
-             return ResponseEntity.ok(updatedBrand);
+             return ResponseEntity.ok(BrandMapper.INSTANCE.toBrandDTO(updatedBrand));
+
          }
 
 }
