@@ -8,6 +8,9 @@ import com.unvireak.javaSpringBoot.phoneShop.phoneShop.service.BrandService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Map;
+
 @Service
 public class BrandServiceImpl implements BrandService {
 
@@ -36,6 +39,20 @@ public class BrandServiceImpl implements BrandService {
         return brandRepository.save(brand);
     }
 
+//    @Override
+//    public List<Brand> getBrands() {
+//        return brandRepository.findAll();
+//    }
+    @Override
+    public List<Brand> getBrands(String name) {
+        return brandRepository.findByNameLike("%" + name + "%");
+    }
+
+    @Override
+    public List<Brand> getBrands(Map<String, String> params) {
+
+        return null;
+    }
 
 
 }

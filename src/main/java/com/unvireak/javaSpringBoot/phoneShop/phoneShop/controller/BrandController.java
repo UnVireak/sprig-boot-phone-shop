@@ -17,6 +17,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 
 @RestController
@@ -49,5 +52,25 @@ public class BrandController {
              return ResponseEntity.ok(BrandMapper.INSTANCE.toBrandDTO(updatedBrand));
 
          }
+    @GetMapping("filter")
+    public ResponseEntity<?> getBrands(@RequestParam Map<String, String> params){
+//     List<BrandDTO> list = brandService.getBrands(name)
+//                .stream()
+//                .map(brand -> BrandMapper.INSTANCE.toBrandDTO(brand))
+//                .collect(Collectors.toList());
+//        return ResponseEntity.ok(list);
+//        return ResponseEntity.ok(BrandMapper.INSTANCE.toBrandDTO(brand));
+        return null;
+    }
+
+    @GetMapping
+    public ResponseEntity<?> getBrands(String name){
+        List<BrandDTO> list = brandService.getBrands(name)
+                .stream()
+                .map(brand -> BrandMapper.INSTANCE.toBrandDTO(brand))
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(list);
+//        return ResponseEntity.ok(BrandMapper.INSTANCE.toBrandDTO(brand));
+    }
 
 }
